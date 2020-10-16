@@ -14,7 +14,7 @@
 -The entries aren't checked for any outliers/NaN values.
 
 https://data.world/datafiniti/consumer-reviews-of-amazon-products
-AmazonProductReviews.csv
+AmazonProductReviews.csv (download the largest file you get)
 
 https://www.kaggle.com/snap/amazon-fine-food-reviews
 AmazonFineFoodReviews.csv
