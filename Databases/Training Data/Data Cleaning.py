@@ -51,4 +51,5 @@ tempDF = pd.DataFrame({'Product': musicInstrumentDB.loc[:,'asin'], 'review': mus
 cleanDF = cleanDF.append(tempDF, ignore_index= True)
 
 
+cleanDF.dropna(subset = ["review"], inplace=True)
 cleanDF[['Product', 'review', 'rating', 'type']].to_csv("CleanDB.csv", index = False)
