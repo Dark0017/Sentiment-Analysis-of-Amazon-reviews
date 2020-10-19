@@ -1,9 +1,9 @@
 classifier.py uses the cleanDB.csv file obtained from the cleaning script.
 
 It does the following:
-1.'count_vec' Creates a count vectorizer that returns a dictionary {word's index in doc: it's frequency} in the form of a sparse matrix using scikit learn's scipy implementation.
+1.'countVect' Creates a count vectorizer that returns a dictionary {word's index in doc: it's frequency} in the form of a sparse matrix using scikit learn's scipy implementation.
  
-2.'tfidf_transformer' Applies the Total frequency times inverse document frequency(tfidf) technique, which basically means the words' total frequency throughout the review set is divided by their per review frequency, distributing the overall values (nearly) evenly.
+2.'tfidfTransformer' Applies the Total frequency times inverse document frequency(tfidf) technique, which basically means the words' total frequency throughout the review set is divided by their per review frequency, distributing the overall values (nearly) evenly.
 
 3.'classifier' is the classifier object. Rpleace its value to that of choice to test different classifiers.
 
