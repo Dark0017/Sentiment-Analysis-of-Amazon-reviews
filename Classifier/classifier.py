@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+import pickle
 
 df = pd.read_csv('CleanDB.csv')
 
@@ -35,20 +36,12 @@ sentimentPipeline = Pipeline([('vect', countVect), ('tfidf', tfidfTransformer), 
 
 sentimentPipeline.fit(X_train.apply(lambda x: np.str_(x)), y_train)
 
-y_predicted = sentimentPipeline.predict(X_test.apply(lambda x: np.str_(x)))
+file = open('trainedClassifier.clf', 'wb')
+pickle.dump(sentimentPipeline, file)
+file = open('trainedClassifier.clf', 'rb')
+loaded_clf = pickle.load(file)
+
+y_predicted = loaded_clf.predict(X_test.apply(lambda x: np.str_(x)))
 avgAccuracy = np.mean(y_predicted == y_test)
 
 print(avgAccuracy)
-
-
-
-
-
-
-
-
-
-
-
-
-
