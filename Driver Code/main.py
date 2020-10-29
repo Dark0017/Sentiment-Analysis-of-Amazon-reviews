@@ -50,6 +50,7 @@ def getClassifierFile():
     with open('trainedClassifier.clf', 'rb') as clfFile:
         classifier = pickle.load(clfFile)
         return classifier
+
 #Driver Code:
 if __name__ == '__main__':
     getAndStoreReviews((input('Enter amazon product URL: ')))
@@ -57,5 +58,4 @@ if __name__ == '__main__':
     classifier = getClassifierFile()
     userPredictions = classifier.predict(userReviews['Review'].apply(lambda x: np.str_(x)))
     userReviews["Predictions"] = userPredictions
-    print(userReviews.head(3))
-
+    print(userReviews)

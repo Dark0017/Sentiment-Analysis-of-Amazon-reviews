@@ -14,10 +14,10 @@ def trimDataset(df, training_size = 0):
         return df
 
 def makeClassifierPickle(training_size = 0):
-    import os; from pathlib import Path
+    import os
     source = os.path.dirname(__file__)
     fileName = os.path.join(source, 'CleanDB.csv')
-    if not os.path.isfile(fileName) :
+    if not os.path.isfile(fileName):
         getTrainingData()
     df = pd.read_csv('CleanDB.csv')
     if(training_size > 0):
