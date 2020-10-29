@@ -7,12 +7,13 @@ from sklearn.pipeline import Pipeline
 import pickle
 
 df = pd.read_csv('CleanDB.csv')
+df = df.sample(n = 60000)
 
 #reviews are features and the sentiment polarity is the label.
 X, y = df.loc[:, 'review'], df.loc[:, 'type']
 
 #split the data into train and test sets.
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X, y)
 
 '''
 #Tokenizing the data to obtain feature vectors.
@@ -31,7 +32,7 @@ X_train_tfidf = tfidfTransformer.fit_transform(X_train_counts)w
 '''
 countVect = CountVectorizer()
 tfidfTransformer = TfidfTransformer()
-classifier = LogisticRegression()
+classifier = LogisticRegression(random_state=1, max_iter=500)
 sentimentPipeline = Pipeline([('vect', countVect), ('tfidf', tfidfTransformer), ('clf', classifier)])
 
 sentimentPipeline.fit(X_train.apply(lambda x: np.str_(x)), y_train)
@@ -43,5 +44,17 @@ loaded_clf = pickle.load(file)
 
 y_predicted = loaded_clf.predict(X_test.apply(lambda x: np.str_(x)))
 avgAccuracy = np.mean(y_predicted == y_test)
+
+testReview = {"This is not the actual Optimum Nutrition product. It's fake. Optimum Nutrition website lists few guidelines to confirm that the box is original. This box does not match most of the descriptions there. Firstly the box contains typos at a lot of places, it does not have batch number and manufacturing details. Amazon should not allow fake products to be sold on their website"}
+
+testPrediction = sentimentPipeline.predict(testReview)
+
+
+def getPrediction(reviewText):
+    prediction = sentimentPipeline.predict(testReview)
+    return int(testPrediction[0])
+
+
+print(getPrediction(testReview))
 
 print(avgAccuracy)
