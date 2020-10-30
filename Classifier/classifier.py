@@ -19,7 +19,8 @@ def makeClassifierPickle(training_size = 0):
     fileName = os.path.join(source, 'CleanDB.csv')
     if not os.path.isfile(fileName):
         getTrainingData()
-    df = pd.read_csv('CleanDB.csv')
+    selfSource = os.path.dirname(__file__)
+    df = pd.read_csv(os.path.join(selfSource, 'CleanDB.csv'))
     if(training_size > 0):
         df = trimDataset(df, training_size)
     # reviews are features and the sentiment polarity is the label.
@@ -41,6 +42,9 @@ def makeClassifierPickle(training_size = 0):
     fileName = os.path.join(source, 'Driver Code', 'trainedClassifier.clf')
     with open(fileName, 'wb') as clfFile:
         pickle.dump(sentimentPipeline, clfFile)
+    y_predicted =  sentimentPipeline.predict(X_test.apply(lambda x: np.str_(x)))
+    avgAccuracy = np.mean(y_predicted  == y_test)
+    print("Classifier with average testing accuracy of {} exported to 'root/Driver Code' as pickle file.".format(avgAccuracy))
     return
 
 if __name__ == '__main__':

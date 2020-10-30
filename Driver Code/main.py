@@ -54,7 +54,7 @@ def getClassifierFile():
 #Driver Code:
 if __name__ == '__main__':
     getAndStoreReviews((input('Enter amazon product URL: ')))
-    userReviews = pd.read_csv('reviews.csv')
+    userReviews = pd.read_csv('reviews.csv', encoding = 'latin1')
     classifier = getClassifierFile()
     userPredictions = classifier.predict(userReviews['Review'].apply(lambda x: np.str_(x)))
     userReviews["Predictions"] = userPredictions
